@@ -20,13 +20,13 @@
 		<!-- D3.js -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
+		<!-- Tableau JS API -->
+		<script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/tableau-2.min.js"></script>
+
 		<style>
 			body {
-				width:  530px;
-				height: 655px;
-				margin-left:  5%;
-				margin-right: 5%;
-				background-color:  #efefe8;
+				margin-left:  auto;
+				margin-right: auto;
 				font-family: 'Work Sans', sans-serif;
 				font-size: 11px;
 				font-weight: 100;
@@ -42,15 +42,9 @@
 				text-align: left;
 			}
 			svg {
-				margin:  0 auto;
-			}
-			.seedsCircle {
-				margin-top: 15px;
-				margin-left: 45px;
-				width: 130px;
-				height: 90px;
-				position: relative;
-				right: 50px;
+				margin-top: 100px;
+				margin-left:  115px;
+				position: absolute;
 			}
 			.leftSide {
 				font-weight:  300;
@@ -87,58 +81,8 @@
 
 	</head>
 	<body>
-
-		<div class="row">
-			<h1 class="col-xs-8">LAS SERRANIAS DECAF <br> HUILA COLOMBIA </h1>
-			<img class="col-xs-3 seedsCircle" src="seven-seeds-circle.png" alt="small yellow circular seven seeds logo">
-		</div>
-
+		<div class="tableauViz"></div>
 		<div class="row radarChart"></div>
-
-		<section class="desc">
-
-			<hr>
-
-			<div class="row">
-				<div class="col-xs-4 leftSide">TASTES LIKE</div>
-				<div class="col-xs-8 rightSide">Apricot, Banana, Dark Chocolate</div>
-				</div>
-			</div>
-
-			<hr>
-
-			<div class="row">
-				<div class="col-xs-4 leftSide">ORIGIN</div>
-				<div class="col-xs-8 rightSide">Huila, Colombia</div>
-			</div>
-
-			<hr>
-
-			<div class="row">
-				<div class="col-xs-4 leftSide">PROCESS</div>
-				<div class="col-xs-8 rightSide">Washed <br> Caturra, Colombia, Castillo</div>
-			</div>
-
-			<hr>
-
-			<div class="row">
-				<div class="col-xs-4 leftSide">PRODUCER</div>
-				<div class="col-xs-8 rightSide">Descafecolo Plant <br> Manizales </div>
-			</div>
-
-			<hr>
-
-			<div class="row footer">
-				<img class="col-xs-4 leftSide" src="seven-seeds-text.png" alt="seven seeds text">
-				<div class="col-xs-4"></div>
-				<div class="col-xs-4 rightSide social">SEVENSEEDS.COM.AU <br> @7SEEDSCOFFEE</div>
-			</div>
-
-<!-- 			<div class="row">
-				<input class="clickable" type="button" value="Say hi!">
-			</div> -->
-
-		</section>
 
 		<script src="radarChart.js"></script>
 		<script>
@@ -149,8 +93,8 @@
 			//////////////////////// Set-Up //////////////////////////////
 			//////////////////////////////////////////////////////////////
 
-			var margin = {top: 50,right: 100, bottom: 50, left: 100},
-				width = Math.min(450, window.innerWidth - 10) - margin.left - margin.right,
+			var margin = {top: 50,right: 50, bottom: 50, left: 50},
+				width = Math.min(250, window.innerWidth - 10) - margin.left - margin.right,
 				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
 
 			//////////////////////////////////////////////////////////////
@@ -187,11 +131,21 @@
 			//Call function to draw the Radar chart
 			RadarChart(".radarChart", data, radarChartOptions);
 
-			$(function(){
-				$(".clickable").on("click", function() {
-					alert("What's with the click?");
-				})
-			})
+			var placeholderDiv = document.getElementById("tableauViz");
+			var url = "https://public.tableau.com/views/SevenSeedsBackground/Dashboard1?:embed=y&:display_count=yes&publish=yes";
+			var options = {
+			  style: "inline-block",
+			  height: "655px",
+			  width: "530px",
+			  hideTabs: true,
+			  hideToolbar: true
+			};
+
+			viz = new tableau.Viz(placeholderDiv, url, options);
+
+			// Remove nasty scroll bars from your iframe
+			document.querySelector("iframe").setAttribute("scrolling", "no");
+
 		</script>
 	</body>
 </html>
